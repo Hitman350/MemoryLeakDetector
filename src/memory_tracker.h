@@ -1,3 +1,4 @@
+extern MemBlock *head;
 #ifndef MEMORY_TRACKER_H  // Prevent multiple inclusions
 #define MEMORY_TRACKER_H
 

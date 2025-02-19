@@ -10,7 +10,7 @@ typedef struct MemBlock {
     struct MemBlock *next;
 } MemBlock;
 
-static MemBlock *head = NULL;
+MemBlock *head = NULL;
 
 void* track_malloc(size_t size, const char* file, int line) {
     void *ptr = malloc(size);

@@ -20,7 +20,26 @@ void log_memory_allocation(const char *msg) {
     
     time_t now;
     time(&now);
-    fprintf(log_file, "[%s] %s\n", ctime(&now), msg);
+    fprintf(log_file, "[%s] ALLOCATION: %s\n", ctime(&now), msg);
+    fflush(log_file);
+}
+
+void log_memory_deallocation(const char *msg) {
+    if (!log_file) init_logger();
+    
+    time_t now;
+    time(&now);
+    fprintf(log_file, "[%s] DEALLOCATION: %s\n", ctime(&now), msg);
+    fflush(log_file);
+}
+
+void log_memory_leak(const char *msg) {
+    if (!log_file) init_logger();
+    
+    time_t now;
+    time(&now);
+    fprintf(log_file, "[%s] MEMORY LEAK DETECTED: %s\n", ctime(&now), msg);
+    fflush(log_file);
 }
 
 void close_logger() {

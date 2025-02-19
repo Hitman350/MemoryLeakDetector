@@ -1,26 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "security_checks.h"
+#include "shadow_memory.h"
 
-typedef struct FreedMemory {
-    void *ptr;
-    struct FreedMemory *next;
-} FreedMemory;
-
-FreedMemory *freed_list = NULL;
+void check_use_after_free(void *ptr) {
+    if (is_memory_freed(ptr)) {
+        printf("Warning: Use-after-free detected at address %p\n", ptr);
+    }
+}
 
 void check_double_free(void *ptr) {
-    FreedMemory *curr = freed_list;
-    while (curr) {
-        if (curr->ptr == ptr) {
-            printf("⚠️ Double-free detected at %p!\n", ptr);
-            return;
-        }
-        curr = curr->next;
+    if (is_memory_freed(ptr)) {
+        printf("Warning: Double free detected at address %p\n", ptr);
     }
-
-    FreedMemory *new_entry = (FreedMemory *)malloc(sizeof(FreedMemory));
-    new_entry->ptr = ptr;
-    new_entry->next = freed_list;
-    freed_list = new_entry;
 }

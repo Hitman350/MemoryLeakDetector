@@ -1,6 +1,6 @@
 #ifndef VISUALIZATION_H
 #define VISUALIZATION_H
 
-void visualize_memory_leaks();
+void generate_visualization();
 
-#endif // VISUALIZATION_H
+#endif

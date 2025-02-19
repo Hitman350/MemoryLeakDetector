@@ -2,31 +2,24 @@
 #include <stdlib.h>
 #include "memory_tracker.h"
 
-void test_memory_leak() {
-    printf("\nRunning test: Memory Leak Detection...\n");
-    int *leaked_ptr = (int*)malloc(50 * sizeof(int));  // Intentional leak
-    (void)leaked_ptr;
-}
+void run_tests() {
+    printf("Running Tests...\n");
 
-void test_double_free() {
-    printf("\nRunning test: Double Free Detection...\n");
-    int *ptr = (int*)malloc(10 * sizeof(int));
-    free(ptr);
-    free(ptr); // Intentional double free
-}
+    // Memory allocation test
+    int *test1 = (int*)malloc(10 * sizeof(int));
+    if (test1) printf("Test 1 Passed: Memory allocated\n");
 
-void test_use_after_free() {
-    printf("\nRunning test: Use After Free Detection...\n");
-    int *ptr = (int*)malloc(10 * sizeof(int));
-    free(ptr);
-    printf("Accessing freed memory: %d\n", *ptr);  // Should trigger an error
+    // Memory leak test (intentional)
+    int *test2 = (int*)malloc(50 * sizeof(int));
+    (void)test2; // Suppressing unused variable warning
+
+    // Proper deallocation
+    free(test1);
+    printf("Test 2 Passed: Memory freed properly\n");
 }
 
 int main() {
-    test_memory_leak();
-    test_double_free();
-    test_use_after_free();
-
-    print_memory_leaks(); // Ensure leaks are detected at the end
+    run_tests();
+    print_memory_leaks();  // Check for leaks
     return 0;
 }

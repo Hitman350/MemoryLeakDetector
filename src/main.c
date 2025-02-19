@@ -1,3 +1,5 @@
+#define ENABLE_MEMORY_TRACKING  // Enable the malloc/free macros
+#include "memory_tracker.h"      // Include the tracking functions
 #include <stdio.h>
 #include <stdlib.h>
 
